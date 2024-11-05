@@ -1,0 +1,35 @@
+@use 'sass:color';
+@use './mixins' as *;
+@use './views/login';
+@use './views/register';
+@use './views/dashboard';
+
+// Estilos globais
+body {
+  font-family: var(--bs-body-font-family);
+  background-color: $gray-100;
+}
+
+// Estilos de componentes comuns
+.auth-container {
+  @include flex-center;
+  min-height: 100vh;
+  @include gradient-background;
+  padding: 1rem;
+}
+
+.auth-card {
+  background: $white;
+  padding: 2rem;
+  border-radius: 1rem;
+  @include card-shadow;
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-logo {
+  @include responsive-image;
+  max-width: 120px;
+  margin: 0 auto 2rem;
+  display: block;
+}

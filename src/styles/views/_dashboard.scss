@@ -1,0 +1,32 @@
+@use '../mixins' as *;
+
+.dashboard-view {
+  .navbar {
+    @include card-shadow;
+  }
+
+  .navbar-brand img {
+    @include transition-all;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  .btn-outline-light {
+    @include transition-all;
+    
+    &:hover {
+      transform: translateY(-1px);
+    }
+  }
+
+  .card {
+    @include card-shadow;
+    @include transition-all;
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+} 

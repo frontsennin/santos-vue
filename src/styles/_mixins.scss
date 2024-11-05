@@ -1,0 +1,30 @@
+// Variáveis e mixins para serem compartilhados
+$primary-color: #000000;
+$secondary-color: #1c1c1c;
+$white: #ffffff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-600: #6c757d;
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin card-shadow {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@mixin gradient-background {
+  background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+}
+
+@mixin responsive-image {
+  max-width: 100%;
+  height: auto;
+}
+
+@mixin transition-all {
+  transition: all 0.3s ease;
+}

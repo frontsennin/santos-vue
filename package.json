@@ -1,14 +1,13 @@
 {
-  "name": "temp_vue_project",
+  "name": "santos-socios",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --build --force",
+    "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --fix"
   },
   "dependencies": {
@@ -35,6 +34,7 @@
     "vite": "^4.5.0",
     "vue-tsc": "^1.8.22",
     "sass": "^1.69.5",
-    "sass-embedded": "^1.69.5"
+    "sass-embedded": "^1.69.5",
+    "terser": "^5.26.0"
   }
 }

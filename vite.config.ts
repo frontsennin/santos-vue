@@ -16,6 +16,20 @@ export default defineConfig({
       }
     }
   },
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: false,
+    minify: 'terser',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor': ['vue', 'vue-router', 'pinia'],
+          'styles': ['bootstrap', '@fortawesome/fontawesome-free']
+        }
+      }
+    }
+  },
   server: {
     watch: {
       usePolling: true,

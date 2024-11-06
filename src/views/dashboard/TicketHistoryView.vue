@@ -1,47 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { Ticket } from '../../types/dashboard'
+import { USER_TICKETS } from '../../constants/tickets'
 
-const tickets = ref<Ticket[]>([
-  {
-    id: 1,
-    jogo: {
-      id: 1,
-      mandante: 'Santos',
-      visitante: 'Palmeiras',
-      data: '2024-01-20',
-      horario: '16:00',
-      estadio: 'Vila Belmiro',
-      preco: 'R$ 60,00',
-      disponivel: true,
-      setor: 'Arquibancada'
-    },
-    dataCompra: '2024-01-15',
-    setor: 'Arquibancada',
-    valor: 60.00,
-    status: 'ativo',
-    codigoQR: 'qr-code-1'
-  },
-  {
-    id: 2,
-    jogo: {
-      id: 2,
-      mandante: 'Santos',
-      visitante: 'São Paulo',
-      data: '2023-12-20',
-      horario: '18:30',
-      estadio: 'Vila Belmiro',
-      preco: 'R$ 80,00',
-      disponivel: false,
-      setor: 'Cadeiras'
-    },
-    dataCompra: '2023-12-15',
-    setor: 'Cadeiras',
-    valor: 80.00,
-    status: 'usado',
-    codigoQR: 'qr-code-2'
-  }
-])
+const tickets = ref(USER_TICKETS)
 
 const getStatusBadgeClass = (status: string) => {
   switch (status) {

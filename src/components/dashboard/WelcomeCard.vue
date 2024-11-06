@@ -7,10 +7,6 @@ defineProps<{
   userLevel: UserLevel
   points: number
 }>()
-
-export default {
-  name: 'WelcomeCard'
-}
 </script>
 
 <template>

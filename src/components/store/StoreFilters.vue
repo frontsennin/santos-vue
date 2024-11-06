@@ -9,6 +9,13 @@ defineEmits<{
   'update:activeCategory': [value: string]
   'update:sortBy': [value: string]
 }>()
+
+const handleSortChange = (event: Event) => {
+  const target = event.target as HTMLSelectElement
+  if (target) {
+    emit('update:sortBy', target.value)
+  }
+}
 </script>
 
 <template>
@@ -29,7 +36,7 @@ defineEmits<{
     <div class="col-12 col-md-6">
       <select 
         :value="sortBy"
-        @input="$emit('update:sortBy', $event.target.value)"
+        @change="handleSortChange"
         class="form-select"
       >
         <option value="preco-menor">Menor Preço</option>

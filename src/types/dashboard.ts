@@ -7,8 +7,8 @@ export interface Game {
   estadio: string;
   preco: string;
   disponivel: boolean;
-  setor?: string;
   capacidade?: number;
+  setor?: string;
 }
 
 export interface UserLevel {
@@ -39,16 +39,6 @@ export interface Achievement {
   completed: boolean;
 }
 
-export interface Ticket {
-  id: number;
-  jogo: Game;
-  dataCompra: string;
-  setor: string;
-  valor: number;
-  status: 'ativo' | 'usado' | 'cancelado';
-  codigoQR?: string;
-}
-
 export interface Product {
   id: number;
   nome: string;
@@ -69,4 +59,14 @@ export interface Coupon {
   validade: string;
   usado: boolean;
   tipo: 'loja' | 'ingresso' | 'outros';
+}
+
+export interface Ticket {
+  id: number;
+  jogo: Game;
+  dataCompra: string;
+  setor: string;
+  valor: number;
+  status: 'ativo' | 'usado' | 'cancelado';
+  codigoQR?: string;
 } 

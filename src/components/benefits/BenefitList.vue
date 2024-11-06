@@ -10,10 +10,6 @@ defineProps<{
 const emit = defineEmits<{
   'unlock': [benefitId: number]
 }>()
-
-export default {
-  name: 'BenefitList'
-}
 </script>
 
 <template>

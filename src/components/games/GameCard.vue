@@ -8,11 +8,6 @@ defineProps<{
 const emit = defineEmits<{
   'buy': [gameId: number]
 }>()
-
-export default {
-  name: 'GameCard'
-} 
-
 </script>
 
 <template>

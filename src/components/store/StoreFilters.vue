@@ -5,7 +5,7 @@ defineProps<{
   sortBy: string
 }>()
 
-defineEmits<{
+const emit = defineEmits<{
   'update:activeCategory': [value: string]
   'update:sortBy': [value: string]
 }>()

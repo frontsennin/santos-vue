@@ -11,10 +11,10 @@ const emit = defineEmits<{
   'buy-points': [productId: number]
 }>()
 
-export default {
-  name: 'ProductCard'
-}   
-
+const getPrecoComDesconto = (produto: Product) => {
+  if (!produto.desconto) return produto.preco
+  return produto.preco * (1 - produto.desconto / 100)
+}
 </script>
 
 <template>
@@ -42,7 +42,7 @@ export default {
             R$ {{ product.preco.toFixed(2) }}
           </p>
           <p v-if="product.desconto" class="discount-price mb-0">
-            R$ {{ (product.preco * (1 - product.desconto / 100)).toFixed(2) }}
+            R$ {{ getPrecoComDesconto(product).toFixed(2) }}
           </p>
         </div>
         <span class="points-badge">

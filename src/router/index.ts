@@ -12,9 +12,13 @@ declare module 'vue-router' {
 
 const routes: RouteRecordRaw[] = [
   {
-    path: '/',
+    path: '/login',
     name: 'login',
     component: LoginView
+  },
+  {
+    path: '/',
+    redirect: '/login'
   },
   {
     path: '/register',
@@ -25,7 +29,39 @@ const routes: RouteRecordRaw[] = [
     path: '/dashboard',
     name: 'dashboard',
     component: () => import('../views/DashboardView.vue'),
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
+    children: [
+      {
+        path: '',
+        name: 'dashboard-home',
+        component: () => import('../views/dashboard/HomeView.vue')
+      },
+      {
+        path: 'gamification',
+        name: 'gamification',
+        component: () => import('../views/dashboard/GamificationView.vue')
+      },
+      {
+        path: 'games',
+        name: 'games',
+        component: () => import('../views/dashboard/GamesView.vue')
+      },
+      {
+        path: 'tickets',
+        name: 'tickets',
+        component: () => import('../views/dashboard/TicketHistoryView.vue')
+      },
+      {
+        path: 'store',
+        name: 'store',
+        component: () => import('../views/dashboard/StoreView.vue')
+      },
+      {
+        path: 'benefits',
+        name: 'benefits',
+        component: () => import('../views/dashboard/BenefitsView.vue')
+      }
+    ]
   }
 ]
 

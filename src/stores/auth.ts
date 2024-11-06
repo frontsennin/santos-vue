@@ -3,6 +3,9 @@ import { ref } from 'vue';
 import { DatabaseService } from '../services/db';
 
 interface User {
+  name: string;
+  cpf: string;
+  birthDate: string;
   email: string;
   password: string;
 }

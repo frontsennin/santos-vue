@@ -1,8 +1,14 @@
 @use '../mixins' as *;
 
 .dashboard-view {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
   .navbar {
     @include card-shadow;
+    width: 100%;
   }
 
   .navbar-brand img {
@@ -21,12 +27,35 @@
     }
   }
 
+  .dashboard-content {
+    flex: 1;
+    width: 100%;
+  }
+
   .card {
     @include card-shadow;
     @include transition-all;
+    width: 100%;
     
     &:hover {
       transform: translateY(-2px);
+    }
+  }
+
+  .container-fluid {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    @include md {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    @include lg {
+      padding-left: 3rem;
+      padding-right: 3rem;
     }
   }
 } 

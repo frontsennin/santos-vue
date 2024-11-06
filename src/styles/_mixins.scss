@@ -1,4 +1,4 @@
-// Variáveis e mixins para serem compartilhados
+// Variáveis
 $primary-color: #000000;
 $secondary-color: #1c1c1c;
 $white: #ffffff;
@@ -6,6 +6,45 @@ $gray-100: #f8f9fa;
 $gray-200: #e9ecef;
 $gray-600: #6c757d;
 
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
+// Mixins de Media Queries
+@mixin sm {
+  @media (min-width: $breakpoint-sm) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (min-width: $breakpoint-xl) {
+    @content;
+  }
+}
+
+@mixin xxl {
+  @media (min-width: $breakpoint-xxl) {
+    @content;
+  }
+}
+
+// Mixins existentes
 @mixin flex-center {
   display: flex;
   align-items: center;

@@ -4,10 +4,23 @@
 @use './views/register';
 @use './views/dashboard';
 
+// Reset global
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 // Estilos globais
 body {
   font-family: var(--bs-body-font-family);
   background-color: $gray-100;
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  display: contents;
 }
 
 // Estilos de componentes comuns
@@ -16,20 +29,111 @@ body {
   min-height: 100vh;
   @include gradient-background;
   padding: 1rem;
+  width: 100%;
+
+  @include md {
+    padding: 2rem;
+  }
+
+  @include lg {
+    padding: 3rem;
+  }
 }
 
 .auth-card {
   background: $white;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 1rem;
   @include card-shadow;
   width: 100%;
-  max-width: 400px;
+  max-width: 100%;
+
+  @include sm {
+    padding: 2rem;
+    max-width: 500px;
+  }
+
+  @include md {
+    padding: 2.5rem;
+    max-width: 50%;
+  }
+
+  @include lg {
+    padding: 3rem;
+    max-width: 50%;
+  }
+
+  @include xl {
+    max-width: 50%;
+  }
+
+  .card-body {
+    max-width: 600px;
+    margin: 0 auto;
+  }
 }
 
 .auth-logo {
   @include responsive-image;
-  max-width: 120px;
-  margin: 0 auto 2rem;
-  display: block;
+  width: 80px;
+  margin: 0 auto 1.5rem;
+
+  @include sm {
+    width: 100px;
+  }
+
+  @include md {
+    width: 120px;
+    margin-bottom: 2rem;
+  }
+
+  @include lg {
+    width: 140px;
+    margin-bottom: 2.5rem;
+  }
+}
+
+// Classes utilitárias responsivas
+.responsive-padding {
+  padding: 1rem;
+
+  @include sm {
+    padding: 1.5rem;
+  }
+
+  @include md {
+    padding: 2rem;
+  }
+
+  @include lg {
+    padding: 2.5rem;
+  }
+}
+
+.responsive-gap {
+  gap: 1rem;
+
+  @include sm {
+    gap: 1.5rem;
+  }
+
+  @include md {
+    gap: 2rem;
+  }
+}
+
+.responsive-font {
+  font-size: 0.9rem;
+
+  @include sm {
+    font-size: 1rem;
+  }
+
+  @include md {
+    font-size: 1.1rem;
+  }
+
+  @include lg {
+    font-size: 1.2rem;
+  }
 }

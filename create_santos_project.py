@@ -1,5 +1,6 @@
 import os
 import subprocess
+import urllib.request
 
 def create_directory(path):
     if not os.path.exists(path):
@@ -8,6 +9,16 @@ def create_directory(path):
 def create_file(path, content):
     with open(path, 'w', encoding='utf-8') as f:
         f.write(content)
+
+def download_logo():
+    # Criar diretório assets se não existir
+    create_directory('src/assets')
+    
+    # URL da logo do Santos
+    logo_url = 'https://upload.wikimedia.org/wikipedia/commons/1/15/Santos_Logo.png'
+    
+    # Baixar e salvar a logo
+    urllib.request.urlretrieve(logo_url, 'src/assets/santos-logo.png')
 
 def main():
     # Criar projeto Vue
@@ -21,12 +32,14 @@ def main():
         subprocess.run(['npm', 'install'], check=True)
         subprocess.run(['npm', 'install', '@vueuse/core'], check=True)
         subprocess.run(['npm', 'install', '-D', 'sass'], check=True)
+        subprocess.run(['npm', 'install', '-D', 'sass-embedded'], check=True)
     except AttributeError:
         subprocess.check_call(['npm', 'install'])
         subprocess.check_call(['npm', 'install', '@vueuse/core'])
         subprocess.check_call(['npm', 'install', '-D', 'sass'])
+        subprocess.check_call(['npm', 'install', '-D', 'sass-embedded'])
 
-    # Criar estrutura de diretórios incluindo styles
+    # Criar estrutura de diretórios incluindo assets
     directories = [
         'src/services',
         'src/stores',
@@ -34,10 +47,14 @@ def main():
         'src/components',
         'src/styles',
         'src/styles/views',
+        'src/assets',
     ]
 
     for directory in directories:
         create_directory(directory)
+
+    # Baixar logo do Santos
+    download_logo()
 
     # Conteúdo dos arquivos
     db_service = '''export class DatabaseService {

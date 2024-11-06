@@ -15,5 +15,13 @@ export default defineConfig({
         additionalData: `@use "@/styles/mixins" as *;`
       }
     }
+  },
+  server: {
+    watch: {
+      usePolling: true,
+    },
+    hmr: {
+      overlay: true
+    }
   }
 })

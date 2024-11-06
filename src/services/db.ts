@@ -1,4 +1,7 @@
 interface User {
+  name: string;
+  cpf: string;
+  birthDate: string;
   email: string;
   password: string;
 }

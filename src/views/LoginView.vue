@@ -15,9 +15,9 @@ const handleLogin = async () => {
   try {
     isLoading.value = true
     errorMessage.value = ''
-    
+
     const success = await authStore.login(email.value, password.value)
-    
+
     if (success) {
       router.push('/dashboard')
     } else {
@@ -40,31 +40,31 @@ const handleLogin = async () => {
           <img src="@/assets/santos-logo.png" alt="Santos FC Logo" class="img-fluid mb-3" style="max-width: 120px;">
           <h2 class="fw-bold">Login Sócio Santos FC</h2>
         </div>
-        
+
         <form @submit.prevent="handleLogin">
           <div class="mb-3">
             <label for="email" class="form-label">
               <i class="fas fa-envelope me-2"></i>E-mail
             </label>
-            <input 
+            <input
               id="email"
-              v-model="email" 
-              type="email" 
+              v-model="email"
+              type="email"
               class="form-control"
               placeholder="Digite seu e-mail"
               required
               :disabled="isLoading"
             >
           </div>
-          
+
           <div class="mb-3">
             <label for="password" class="form-label">
               <i class="fas fa-lock me-2"></i>Senha
             </label>
-            <input 
+            <input
               id="password"
-              v-model="password" 
-              type="password" 
+              v-model="password"
+              type="password"
               class="form-control"
               placeholder="Digite sua senha"
               required
@@ -77,8 +77,8 @@ const handleLogin = async () => {
             {{ errorMessage }}
           </div>
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             class="btn btn-dark w-100 mb-3"
             :disabled="isLoading"
           >
@@ -88,7 +88,7 @@ const handleLogin = async () => {
         </form>
 
         <p class="text-center mb-0">
-          Ainda não é sócio? 
+          Ainda não é sócio?
           <router-link to="/register" class="text-dark fw-bold text-decoration-none">
             <i class="fas fa-user-plus me-1"></i>Cadastre-se aqui
           </router-link>
@@ -96,4 +96,4 @@ const handleLogin = async () => {
       </div>
     </div>
   </div>
-</template> 
+</template>

@@ -3,6 +3,7 @@ import type { RouteRecordRaw } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '../stores/auth'
 import LoginView from '../views/LoginView.vue'
+import RegisterStepsView from '@/views/RegisterStepsView.vue'
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -22,8 +23,8 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/register',
-    name: 'register',
-    component: () => import('../views/RegisterView.vue')
+    name: 'Register',
+    component: RegisterStepsView
   },
   {
     path: '/dashboard',
@@ -73,7 +74,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const store = useAuthStore()
   const { isAuthenticated } = storeToRefs(store)
-  
+
   if (to.meta.requiresAuth && !isAuthenticated.value) {
     next({ name: 'login' })
   } else {

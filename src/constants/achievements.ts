@@ -3,7 +3,7 @@ import type { Achievement } from '../types/dashboard'
 export const ACHIEVEMENTS: Achievement[] = [
   {
     id: 1,
-    nome: 'Torcedor Fiel',
+    nome: 'Torcedor Santástico',
     descricao: 'Compareça a 5 jogos seguidos',
     icon: 'fa-star',
     progresso: 3,
@@ -31,4 +31,4 @@ export const ACHIEVEMENTS: Achievement[] = [
     pontos: 1000,
     completed: false
   }
-] 
+]

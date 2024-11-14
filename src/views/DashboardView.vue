@@ -67,7 +67,7 @@ const nivel = ref<UserLevel>({
 const achievements = ref<Achievement[]>([
   {
     id: 1,
-    nome: 'Torcedor Fiel',
+    nome: 'Torcedor Santástico',
     descricao: 'Compareça a 5 jogos seguidos',
     icon: 'fa-star',
     progresso: 3,

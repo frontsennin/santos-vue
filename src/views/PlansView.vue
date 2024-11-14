@@ -52,7 +52,8 @@
             <div class="price">
               <span class="currency">R$</span>
               <span class="amount">{{ calculatePrice(plan.basePrice, plan.selectedPeriod) }}</span>
-              <span class="period">/{{ plan.selectedPeriod }}</span>
+              <br>
+              <span class="period">Valor {{ plan.selectedPeriod }}</span>
             </div>
             <div class="discount" v-if="getDiscount(plan.selectedPeriod)">
               Economia de {{ getDiscount(plan.selectedPeriod) }}%
@@ -332,6 +333,7 @@ export default defineComponent({
 
       .period {
         color: #666;
+        font-size: 16px;
       }
     }
   }

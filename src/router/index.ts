@@ -71,15 +71,55 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const store = useAuthStore()
-  const { isAuthenticated } = storeToRefs(store)
 
-  if (to.meta.requiresAuth && !isAuthenticated.value) {
-    next({ name: 'login' })
-  } else {
-    next()
+  // Se não está autenticado, tenta recuperar a sessão
+  if (!store.isAuthenticated) {
+    await store.init()
   }
+
+  // Se está autenticado e tenta acessar login/register
+  if (store.isAuthenticated && (to.name === 'login' || to.name === 'Register')) {
+    // Se veio de uma rota do dashboard, mantém na rota atual
+    if (from.matched.some(record => record.path.startsWith('/dashboard'))) {
+      return next(false)
+    }
+    // Senão, vai para o dashboard
+    return next({ name: 'dashboard-home' })
+  }
+
+  // Se precisa de auth e não está autenticado
+  if (to.meta.requiresAuth && !store.isAuthenticated) {
+    return next({
+      name: 'login',
+      query: { redirect: to.fullPath }
+    })
+  }
+
+  // Se está autenticado e está em uma rota do dashboard
+  if (store.isAuthenticated && to.matched.some(record => record.path.startsWith('/dashboard'))) {
+    // Salva a última rota do dashboard
+    localStorage.setItem('lastDashboardRoute', to.fullPath)
+  }
+
+  next()
+})
+
+// Adicione isso após a criação do router
+router.beforeResolve(async (to, from, next) => {
+  const store = useAuthStore()
+
+  // Se está autenticado e está tentando acessar o dashboard
+  if (store.isAuthenticated && to.path === '/dashboard') {
+    // Recupera a última rota do dashboard
+    const lastRoute = localStorage.getItem('lastDashboardRoute')
+    if (lastRoute && lastRoute !== '/dashboard') {
+      return next(lastRoute)
+    }
+  }
+
+  next()
 })
 
 export default router

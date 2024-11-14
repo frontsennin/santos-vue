@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useAuthStore } from '../stores/auth'
 import { useRouter } from 'vue-router'
-import { MENU_ITEMS } from '../constants/navigation'
 
 const authStore = useAuthStore()
 const router = useRouter()
@@ -24,10 +23,10 @@ const goToHome = () => {
         <img src="@/assets/santos-logo.png" alt="Santos FC Logo" class="navbar-logo">
       </a>
 
-      <button 
-        class="navbar-toggler" 
-        type="button" 
-        data-bs-toggle="collapse" 
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
         data-bs-target="#navbarNav"
         aria-controls="navbarNav"
         aria-expanded="false"
@@ -39,8 +38,8 @@ const goToHome = () => {
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <router-link 
-              class="nav-link py-2" 
+            <router-link
+              class="nav-link py-2"
               :class="{ active: $route.name === 'dashboard-home' }"
               to="/dashboard"
             >
@@ -48,8 +47,8 @@ const goToHome = () => {
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link 
-              class="nav-link py-2" 
+            <router-link
+              class="nav-link py-2"
               :class="{ active: $route.name === 'games' }"
               to="/dashboard/games"
             >
@@ -57,8 +56,8 @@ const goToHome = () => {
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link 
-              class="nav-link py-2" 
+            <router-link
+              class="nav-link py-2"
               :class="{ active: $route.name === 'tickets' }"
               to="/dashboard/tickets"
             >
@@ -66,8 +65,8 @@ const goToHome = () => {
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link 
-              class="nav-link py-2" 
+            <router-link
+              class="nav-link py-2"
               :class="{ active: $route.name === 'store' }"
               to="/dashboard/store"
             >
@@ -75,8 +74,8 @@ const goToHome = () => {
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link 
-              class="nav-link py-2" 
+            <router-link
+              class="nav-link py-2"
               :class="{ active: $route.name === 'benefits' }"
               to="/dashboard/benefits"
             >
@@ -84,8 +83,8 @@ const goToHome = () => {
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link 
-              class="nav-link py-2" 
+            <router-link
+              class="nav-link py-2"
               :class="{ active: $route.name === 'gamification' }"
               to="/dashboard/gamification"
             >
@@ -94,12 +93,12 @@ const goToHome = () => {
           </li>
         </ul>
 
-        <div class="d-flex align-items-center flex-column flex-lg-row">
-          <span class="text-light mb-2 mb-lg-0 me-lg-3">
+        <div class="d-flex align-items-center">
+          <span class="text-light me-3">
             <i class="fas fa-user me-2"></i>{{ user?.name?.split(' ')[0] }}
           </span>
-          <button 
-            class="btn btn-outline-light w-100 w-lg-auto"
+          <button
+            class="btn btn-outline-light"
             @click="handleLogout"
           >
             <i class="fas fa-sign-out-alt me-2"></i>Sair
@@ -126,7 +125,7 @@ const goToHome = () => {
 
 .nav-link {
   @include transition-all;
-  
+
   &:hover {
     color: $white !important;
   }
@@ -139,9 +138,9 @@ const goToHome = () => {
 
 .btn {
   @include transition-all;
-  
+
   &:hover {
     transform: translateY(-1px);
   }
 }
-</style> 
+</style>

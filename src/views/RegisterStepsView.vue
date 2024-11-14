@@ -14,6 +14,14 @@
         </div>
       </div>
 
+      <!-- Botão Voltar (visível apenas no passo 2) -->
+      <div v-if="currentStep === 2" class="back-button-container">
+        <button @click="goBack" class="back-button">
+          <i class="fas fa-arrow-left"></i>
+          Voltar para Dados Pessoais
+        </button>
+      </div>
+
       <!-- Conteúdo dos Passos -->
       <div class="steps-content">
         <!-- Passo 1: Cadastro -->
@@ -55,6 +63,14 @@ const handlePlanSelection = async () => {
     'success'
   )
   await router.push('/dashboard')
+}
+
+const goBack = () => {
+  currentStep.value = 1
+  notificationStore.addNotification(
+    'Voltando para edição dos dados pessoais',
+    'info'
+  )
 }
 </script>
 
@@ -169,6 +185,45 @@ const handlePlanSelection = async () => {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.back-button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  i {
+    font-size: 1.1rem;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(-5px);
+  }
+
+  &:active {
+    transform: translateX(-2px);
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: center;
   }
 }
 </style>

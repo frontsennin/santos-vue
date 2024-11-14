@@ -24,7 +24,12 @@
             <tr v-for="benefit in allBenefits" :key="benefit">
               <td>{{ benefit }}</td>
               <td v-for="plan in plans" :key="plan.type">
-                <i :class="plan.benefits.includes(benefit) ? 'fas fa-check text-success' : 'fas fa-times text-danger'"></i>
+                <template v-if="plan.benefits.includes(benefit)">
+                  <i class="fas fa-check text-success"></i>
+                </template>
+                <template v-else>
+                  <span class="dash-icon">-</span>
+                </template>
               </td>
             </tr>
           </tbody>
@@ -412,18 +417,24 @@ export default defineComponent({
       padding: 1rem;
       text-align: center;
       border: 1px solid #ddd;
+      color: #ffffff;
     }
 
     th {
       background: #f5f5f5;
+      font-weight: 600;
     }
 
     .text-success {
       color: #4CAF50;
+      font-size: 1.1rem;
     }
 
-    .text-danger {
-      color: #f44336;
+    .dash-icon {
+      color: #999;
+      font-weight: 500;
+      font-size: 1.2rem;
+      opacity: 0.5;
     }
   }
 }

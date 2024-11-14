@@ -38,7 +38,7 @@ const handleLogin = async () => {
       <div class="card-body p-4">
         <div class="text-center mb-4">
           <img src="@/assets/santos-logo.png" alt="Santos FC Logo" class="img-fluid mb-3" style="max-width: 120px;">
-          <h2 class="fw-bold">Login Sócio Santos FC</h2>
+          <h2 class="fw-bold">Login Socio Rei 2.0</h2>
         </div>
 
         <form @submit.prevent="handleLogin">

@@ -3,7 +3,7 @@ import { useAuthStore } from '../stores/auth'
 import { useRouter } from 'vue-router'
 import { ref, computed } from 'vue'
 import type { Game, UserLevel, Benefit, Achievement } from '../types/dashboard'
-
+import { DashboardNavbar } from '@/components/DashboardNavbar.vue'
 const authStore = useAuthStore()
 const router = useRouter()
 const user = authStore.user
@@ -163,35 +163,11 @@ const comprarIngresso = (jogoId: number) => {
 
 <template>
   <div class="dashboard-view">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img src="@/assets/santos-logo.png" alt="Santos FC Logo" class="navbar-logo">
-        </a>
-        
-        <div class="d-flex align-items-center">
-          <div class="d-none d-md-flex align-items-center me-3">
-            <span class="text-light me-3">
-              <i class="fas fa-star me-2"></i>{{ pontos }} pontos
-            </span>
-            <span class="text-light">
-              <i class="fas fa-user me-2"></i>Olá, {{ user?.name?.split(' ')[0] }}!
-            </span>
-          </div>
-          <button 
-            class="btn btn-outline-light"
-            @click="handleLogout"
-          >
-            <i class="fas fa-sign-out-alt me-2"></i>
-            <span class="d-none d-sm-inline">Sair</span>
-          </button>
-        </div>
-      </div>
-    </nav>
+    <DashboardNavbar />
 
     <main class="dashboard-content">
       <router-view v-if="$route.name !== 'dashboard'" />
-      
+
       <template v-else>
         <div class="container py-4">
           <div class="row g-4">
@@ -214,14 +190,8 @@ const comprarIngresso = (jogoId: number) => {
                     </div>
                   </div>
                   <div class="progress mt-3" style="height: 10px;">
-                    <div 
-                      class="progress-bar bg-dark" 
-                      role="progressbar" 
-                      :style="{ width: `${nivel.progresso}%` }"
-                      :aria-valuenow="nivel.progresso" 
-                      aria-valuemin="0" 
-                      aria-valuemax="100"
-                    ></div>
+                    <div class="progress-bar bg-dark" role="progressbar" :style="{ width: `${nivel.progresso}%` }"
+                      :aria-valuenow="nivel.progresso" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
               </div>
@@ -246,10 +216,7 @@ const comprarIngresso = (jogoId: number) => {
                         <i class="fas fa-map-marker-alt me-2"></i>{{ jogo.estadio }}<br>
                         <i class="fas fa-ticket-alt me-2"></i>{{ jogo.preco }}
                       </p>
-                      <button 
-                        class="btn btn-dark w-100"
-                        :disabled="!jogo.disponivel"
-                      >
+                      <button class="btn btn-dark w-100" :disabled="!jogo.disponivel">
                         <i class="fas fa-shopping-cart me-2"></i>Comprar Ingresso
                       </button>
                     </div>
@@ -352,7 +319,7 @@ const comprarIngresso = (jogoId: number) => {
 
 .card {
   @include transition-all;
-  
+
   &:hover {
     transform: translateY(-2px);
   }
@@ -393,9 +360,9 @@ const comprarIngresso = (jogoId: number) => {
 
 .btn {
   @include transition-all;
-  
+
   &:hover:not(:disabled) {
     transform: translateY(-1px);
   }
 }
-</style> 
+</style>

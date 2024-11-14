@@ -3,7 +3,8 @@ import { useAuthStore } from '../stores/auth'
 import { useRouter } from 'vue-router'
 import { ref, computed } from 'vue'
 import type { Game, UserLevel, Benefit, Achievement } from '../types/dashboard'
-import { DashboardNavbar } from '@/components/DashboardNavbar.vue'
+import DashboardNavbar from '../components/DashboardNavbar.vue'
+
 const authStore = useAuthStore()
 const router = useRouter()
 const user = authStore.user

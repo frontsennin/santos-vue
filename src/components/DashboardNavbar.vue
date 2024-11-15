@@ -56,13 +56,33 @@
         </ul>
 
         <div class="d-flex align-items-center user-section">
-          <i class="fas fa-user text-light me-2"></i>
-          <span class="text-light me-3">
-            {{ user?.name?.split(' ')[0] }}
-          </span>
-          <button class="btn btn-outline-light" @click="handleLogout">
-            <i class="fas fa-sign-out-alt me-2"></i>Sair
-          </button>
+          <div class="dropdown">
+            <button
+              class="btn btn-link dropdown-toggle user-dropdown-btn"
+              type="button"
+              @click="toggleUserMenu"
+              :class="{ 'show': isUserMenuOpen }"
+            >
+              <i class="fas fa-user text-light me-2"></i>
+              <span class="text-light">{{ user?.name?.split(' ')[0] }}</span>
+            </button>
+
+            <div class="dropdown-menu dropdown-menu-end" :class="{ 'show': isUserMenuOpen }">
+              <router-link to="/dashboard/profile" class="dropdown-item">
+                <i class="fas fa-user-circle me-2"></i>Perfil
+              </router-link>
+              <router-link to="/dashboard/plan-management" class="dropdown-item">
+                <i class="fas fa-crown me-2"></i>Gerenciar Plano
+              </router-link>
+              <router-link to="/dashboard/payment-methods" class="dropdown-item">
+                <i class="fas fa-credit-card me-2"></i>Métodos de Pagamento
+              </router-link>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item text-danger" @click="handleLogout">
+                <i class="fas fa-sign-out-alt me-2"></i>Sair
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -78,6 +98,7 @@ const authStore = useAuthStore()
 const router = useRouter()
 const user = authStore.user
 const isMenuOpen = ref(false)
+const isUserMenuOpen = ref(false)
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
@@ -103,8 +124,19 @@ const handleRouteChange = () => {
   closeMenu()
 }
 
+const toggleUserMenu = () => {
+  isUserMenuOpen.value = !isUserMenuOpen.value
+}
+
+// Fechar menu ao clicar fora
 onMounted(() => {
   router.afterEach(handleRouteChange)
+  document.addEventListener('click', (event) => {
+    const dropdown = document.querySelector('.user-dropdown-btn')
+    if (!dropdown?.contains(event.target as Node)) {
+      isUserMenuOpen.value = false
+    }
+  })
 })
 
 onBeforeUnmount(() => {
@@ -201,6 +233,68 @@ onBeforeUnmount(() => {
         }
       }
     }
+  }
+}
+
+.user-dropdown-btn {
+  color: white !important;
+  text-decoration: none;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  min-width: fit-content;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+
+  &:after {
+    margin-left: 0.5rem;
+  }
+}
+
+.dropdown-menu {
+  background: #343a40;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 0.5rem;
+  min-width: fit-content;
+  white-space: nowrap;
+  right: 10px !important;
+
+  .dropdown-item {
+    color: #fff;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    i {
+      width: 1.2rem;
+      text-align: center;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    &.text-danger:hover {
+      background: rgba(220, 53, 69, 0.1);
+    }
+  }
+
+  .dropdown-divider {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+@media (max-width: 991px) {
+  .dropdown-menu {
+    position: static !important;
+    width: 100%;
+    margin-top: 1rem;
+    transform: none !important;
   }
 }
 </style>

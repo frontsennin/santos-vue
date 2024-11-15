@@ -61,6 +61,21 @@ const routes: RouteRecordRaw[] = [
         path: 'benefits',
         name: 'benefits',
         component: () => import('../views/dashboard/BenefitsView.vue')
+      },
+      {
+        path: 'profile',
+        name: 'profile',
+        component: () => import('../views/dashboard/ProfileView.vue')
+      },
+      {
+        path: 'plan-management',
+        name: 'plan-management',
+        component: () => import('../views/dashboard/PlanManagementView.vue')
+      },
+      {
+        path: 'payment-methods',
+        name: 'payment-methods',
+        component: () => import('../views/dashboard/PaymentMethodsView.vue')
       }
     ]
   }

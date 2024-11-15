@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import { useAuthStore } from '../../stores/auth'
 import type { Game, UserLevel, Benefit } from '../../types/dashboard'
+import UpgradePlansCard from '@/components/dashboard/UpgradePlansCard.vue'
 
 const authStore = useAuthStore()
 const user = authStore.user
@@ -130,7 +131,7 @@ const planosUpgrade = computed(() => {
 })
 
 const handleUpgrade = (plano: any) => {
-  // Aqui você pode implementar a lógica de upgrade
+  // Implementar lógica de upgrade
   alert(`Upgrade para o plano ${plano.nome} em desenvolvimento`)
 }
 </script>
@@ -253,40 +254,12 @@ const handleUpgrade = (plano: any) => {
 
       <!-- Seção de Upgrade -->
       <div class="col-12 mt-5">
-        <div class="card shadow-sm upgrade-section" v-if="planosUpgrade.length > 0">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-              <div>
-                <h2 class="h4 mb-2">Mude seu Plano</h2>
-                <p class="text-muted mb-0">Conheça os benefícios dos planos superiores</p>
-              </div>
-              <span class="badge bg-primary current-plan">Seu plano atual: {{ nivel.nome }}</span>
-            </div>
-
-            <div class="plans-grid">
-              <div v-for="plano in planosUpgrade" :key="plano.nome" class="plan-card">
-                <div class="plan-header" :class="plano.classe">
-                  <h3>{{ plano.nome }}</h3>
-                  <div class="plan-price">
-                    <span class="currency">R$</span>
-                    <span class="amount">{{ plano.preco }}</span>
-                    <span class="period">/mês</span>
-                  </div>
-                </div>
-                <div class="plan-features">
-                  <ul>
-                    <li v-for="beneficio in plano.beneficios" :key="beneficio">
-                      {{ beneficio }}
-                    </li>
-                  </ul>
-                </div>
-                <button class="btn btn-dark w-100" @click="handleUpgrade(plano)">
-                  Fazer Upgrade
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <UpgradePlansCard
+          v-if="planosUpgrade.length > 0"
+          :current-plan="nivel.nome"
+          :available-plans="planosUpgrade"
+          @upgrade="handleUpgrade"
+        />
       </div>
     </div>
   </div>

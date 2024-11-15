@@ -4,6 +4,17 @@ interface User {
   birthDate: string;
   email: string;
   password: string;
+  phone?: string;
+  address?: {
+    cep: string;
+    street: string;
+    number: string;
+    complement: string;
+    neighborhood: string;
+    city: string;
+    state: string;
+  };
+  gender?: string;
 }
 
 export class DatabaseService {
@@ -33,7 +44,7 @@ export class DatabaseService {
 
   async createUser(user: User): Promise<IDBValidKey> {
     if (!this.db) throw new Error('Database not initialized');
-    
+
     return new Promise<IDBValidKey>((resolve, reject) => {
       const transaction = this.db!.transaction(['users'], 'readwrite');
       const store = transaction.objectStore('users');
@@ -56,4 +67,43 @@ export class DatabaseService {
       request.onerror = () => reject(request.error);
     });
   }
-} 
+
+  async updateUser(email: string, userData: User): Promise<void> {
+    if (!this.db) throw new Error('Database not initialized');
+
+    return new Promise<void>((resolve, reject) => {
+      const transaction = this.db!.transaction(['users'], 'readwrite');
+      const store = transaction.objectStore('users');
+
+      // Primeiro verifica se o usuário existe
+      const getRequest = store.get(email);
+
+      getRequest.onsuccess = () => {
+        if (!getRequest.result) {
+          reject(new Error('Usuário não encontrado'));
+          return;
+        }
+
+        // Mescla os dados existentes com os novos dados
+        const existingUser = getRequest.result;
+        const updatedUser = {
+          ...existingUser,
+          ...userData,
+          // Garante que o email não seja alterado pois é a chave
+          email: email
+        };
+
+        // Atualiza os dados mantendo o email como chave
+        const updateRequest = store.put(updatedUser);
+
+        updateRequest.onsuccess = () => resolve();
+        updateRequest.onerror = () => reject(updateRequest.error);
+      };
+
+      getRequest.onerror = () => reject(getRequest.error);
+
+      transaction.oncomplete = () => resolve();
+      transaction.onerror = () => reject(transaction.error);
+    });
+  }
+}

@@ -71,12 +71,28 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.removeItem('userEmail');
   }
 
+  const updateUserData = async (userData: User) => {
+    try {
+      // Aqui você implementaria a chamada à API para atualizar os dados
+      await new Promise(resolve => setTimeout(resolve, 1000)) // Simulação
+
+      user.value = userData
+      localStorage.setItem('userEmail', userData.email)
+
+      return true
+    } catch (error) {
+      console.error('Erro ao atualizar dados do usuário:', error)
+      throw error
+    }
+  }
+
   return {
     user,
     isAuthenticated,
     init,
     login,
     register,
-    logout
+    logout,
+    updateUserData
   };
 });

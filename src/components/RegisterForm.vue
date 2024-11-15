@@ -67,6 +67,9 @@ import { vMaska } from "maska/vue"
 
 export default defineComponent({
   name: 'RegisterForm',
+  directives: {
+    maska: vMaska
+  },
   emits: ['register-success'],
   setup(_, { emit }) {
     const authStore = useAuthStore()

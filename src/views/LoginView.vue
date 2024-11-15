@@ -46,30 +46,16 @@ const handleLogin = async () => {
             <label for="email" class="form-label">
               <i class="fas fa-envelope me-2"></i>E-mail
             </label>
-            <input
-              id="email"
-              v-model="email"
-              type="email"
-              class="form-control"
-              placeholder="Digite seu e-mail"
-              required
-              :disabled="isLoading"
-            >
+            <input id="email" v-model="email" type="email" class="form-control" placeholder="Digite seu e-mail" required
+              :disabled="isLoading">
           </div>
 
           <div class="mb-3">
             <label for="password" class="form-label">
               <i class="fas fa-lock me-2"></i>Senha
             </label>
-            <input
-              id="password"
-              v-model="password"
-              type="password"
-              class="form-control"
-              placeholder="Digite sua senha"
-              required
-              :disabled="isLoading"
-            >
+            <input id="password" v-model="password" type="password" class="form-control" placeholder="Digite sua senha"
+              required :disabled="isLoading">
           </div>
 
           <div v-if="errorMessage" class="alert alert-danger" role="alert">
@@ -77,11 +63,7 @@ const handleLogin = async () => {
             {{ errorMessage }}
           </div>
 
-          <button
-            type="submit"
-            class="btn btn-dark w-100 mb-3"
-            :disabled="isLoading"
-          >
+          <button type="submit" class="btn btn-dark w-100 mb-3" :disabled="isLoading">
             <i class="fas fa-sign-in-alt me-2"></i>
             {{ isLoading ? 'Entrando...' : 'Entrar' }}
           </button>
@@ -92,6 +74,13 @@ const handleLogin = async () => {
           <router-link to="/register" class="text-dark fw-bold text-decoration-none">
             <i class="fas fa-user-plus me-1"></i>Cadastre-se aqui
           </router-link>
+        </p>
+        <p class="text-center mt-3 mb-0">
+          <small>Sistema Independete, não lucrativo e não oficial Desenvolvido por
+            <a href="https://vue-mazianicolas-main-page-3c2l51nvu-frontsennins-projects.vercel.app/about" target="_blank" rel="noopener" class="text-dark fw-bold text-decoration-none">
+              Front Sennin
+            </a>
+          </small>
         </p>
       </div>
     </div>

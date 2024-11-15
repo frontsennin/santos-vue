@@ -71,6 +71,68 @@ const beneficios = ref<Benefit[]>([
 const proximosBeneficios = computed(() => {
   return beneficios.value.filter(b => !b.unlocked)
 })
+
+// Adicione os dados dos planos disponíveis
+const planosDisponiveis = ref([
+  {
+    nome: 'Bronze',
+    classe: 'bronze',
+    preco: '29,90',
+    beneficios: [
+      'Desconto de 10% na loja oficial',
+      'Prioridade na compra de ingressos',
+      'Carteirinha digital'
+    ]
+  },
+  {
+    nome: 'Prata',
+    classe: 'prata',
+    preco: '49,90',
+    beneficios: [
+      'Todos os benefícios do Bronze',
+      'Desconto de 15% na loja oficial',
+      'Acesso a eventos exclusivos',
+      'Programa de pontos'
+    ]
+  },
+  {
+    nome: 'Ouro',
+    classe: 'ouro',
+    preco: '89,90',
+    beneficios: [
+      'Todos os benefícios do Prata',
+      'Desconto de 20% na loja oficial',
+      'Acesso ao camarote',
+      'Meet & Greet com jogadores'
+    ]
+  },
+  {
+    nome: 'Black',
+    classe: 'black',
+    preco: '199,90',
+    beneficios: [
+      'Todos os benefícios do Ouro',
+      'Desconto de 25% na loja oficial',
+      'Cadeira cativa',
+      'Experiências VIP exclusivas',
+      'Atendimento prioritário'
+    ]
+  }
+])
+
+// Função para filtrar apenas planos superiores ao atual
+const planosUpgrade = computed(() => {
+  const planoAtual = nivel.value.nome.toLowerCase()
+
+  return planosDisponiveis.value.filter(plano =>
+    !planoAtual.includes(plano.classe)
+  )
+})
+
+const handleUpgrade = (plano: any) => {
+  // Aqui você pode implementar a lógica de upgrade
+  alert(`Upgrade para o plano ${plano.nome} em desenvolvimento`)
+}
 </script>
 
 <template>
@@ -95,12 +157,12 @@ const proximosBeneficios = computed(() => {
               </div>
             </div>
             <div class="progress mt-3" style="height: 10px;">
-              <div 
-                class="progress-bar bg-dark" 
-                role="progressbar" 
+              <div
+                class="progress-bar bg-dark"
+                role="progressbar"
                 :style="{ width: `${nivel.progresso}%` }"
-                :aria-valuenow="nivel.progresso" 
-                aria-valuemin="0" 
+                :aria-valuenow="nivel.progresso"
+                aria-valuemin="0"
                 aria-valuemax="100"
               ></div>
             </div>
@@ -132,7 +194,7 @@ const proximosBeneficios = computed(() => {
                   <i class="fas fa-map-marker-alt me-2"></i>{{ jogo.estadio }}<br>
                   <i class="fas fa-ticket-alt me-2"></i>{{ jogo.preco }}
                 </p>
-                <router-link 
+                <router-link
                   :to="`/dashboard/games`"
                   class="btn btn-dark w-100"
                 >
@@ -188,6 +250,44 @@ const proximosBeneficios = computed(() => {
           </div>
         </div>
       </div>
+
+      <!-- Seção de Upgrade -->
+      <div class="col-12 mt-5">
+        <div class="card shadow-sm upgrade-section" v-if="planosUpgrade.length > 0">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <div>
+                <h2 class="h4 mb-2">Mude seu Plano</h2>
+                <p class="text-muted mb-0">Conheça os benefícios dos planos superiores</p>
+              </div>
+              <span class="badge bg-primary current-plan">Seu plano atual: {{ nivel.nome }}</span>
+            </div>
+
+            <div class="plans-grid">
+              <div v-for="plano in planosUpgrade" :key="plano.nome" class="plan-card">
+                <div class="plan-header" :class="plano.classe">
+                  <h3>{{ plano.nome }}</h3>
+                  <div class="plan-price">
+                    <span class="currency">R$</span>
+                    <span class="amount">{{ plano.preco }}</span>
+                    <span class="period">/mês</span>
+                  </div>
+                </div>
+                <div class="plan-features">
+                  <ul>
+                    <li v-for="beneficio in plano.beneficios" :key="beneficio">
+                      {{ beneficio }}
+                    </li>
+                  </ul>
+                </div>
+                <button class="btn btn-dark w-100" @click="handleUpgrade(plano)">
+                  Fazer Upgrade
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -195,7 +295,7 @@ const proximosBeneficios = computed(() => {
 <style lang="scss" scoped>
 .card {
   @include transition-all;
-  
+
   &:hover {
     transform: translateY(-2px);
   }
@@ -225,4 +325,114 @@ a.text-decoration-none {
     }
   }
 }
-</style> 
+
+.upgrade-section {
+  .current-plan {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .plan-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+
+  .plan-header {
+    padding: 1.5rem;
+    text-align: center;
+    color: white;
+
+    &.bronze { background: linear-gradient(135deg, #cd7f32, #8b4513); }
+    &.prata { background: linear-gradient(135deg, #c0c0c0, #808080); }
+    &.ouro { background: linear-gradient(135deg, #ffd700, #daa520); }
+    &.black { background: linear-gradient(135deg, #000000, #2c2c2c); }
+
+    h3 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .plan-price {
+      margin-top: 1rem;
+
+      .currency {
+        font-size: 1.2rem;
+        vertical-align: top;
+      }
+
+      .amount {
+        font-size: 2.5rem;
+        font-weight: bold;
+      }
+
+      .period {
+        font-size: 1rem;
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .plan-features {
+    padding: 1.5rem;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        padding-left: 1.5rem;
+        position: relative;
+        margin-bottom: 0.8rem;
+        font-size: 0.95rem;
+
+        &:before {
+          content: "✓";
+          position: absolute;
+          left: 0;
+          color: #4CAF50;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .btn {
+    border-radius: 0;
+    padding: 1rem;
+    font-weight: 500;
+
+    &:disabled {
+      opacity: 1;
+      cursor: default;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .upgrade-section {
+    .plans-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .current-plan {
+      margin-top: 1rem;
+    }
+  }
+}
+</style>
